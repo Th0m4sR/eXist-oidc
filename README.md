@@ -23,6 +23,8 @@ Parts of the code have been generated using AI. This holds particularly for the 
 I reviewed every part of the code to the best of my knowledge and understanding of the pac4j documentation and eXist-db but I cannot guarantee production security, so be careful when using this repository.
 If you find any problems, let me know in the issues.
 
+The `docker-compose.yml` is only for the demo and not part of the actual plugin.
+
 # How the Realm Works
 
 Please read this section before using the code as it also discusses the security concerns that I am currently aware of.
@@ -109,6 +111,7 @@ Put the output jar you built under `target/exist-oidc-realm-0.1.0-SNAPSHOT.jar` 
 
 ### web.xml
 
+Here, the `web.xml` configuration for pac4j is used as eXist-db's `web.xml` can be easily extended using that method
 The configuration you find in this repository works by adding the filters and filter to the `web.xml`
 ```XML
 ...
