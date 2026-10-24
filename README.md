@@ -10,8 +10,6 @@ This project implements two parts:
 - An eXist-db realm that authenticates users using the username and a token from an OIDC server
 - An example configuration for a filter that secures an application using either OIDC or basic authentication.
 
-For the OIDC realm, you can reuse the existing implementation for Keycloak or implement the `OidcTokenValidator` interface yourselbf for other servers.
-
 The configuration factory, filters and matchers can be any pac4j implementation and you might configure them yourself.
 For the context in which I originally implemented this project, I needed both Basic auth to eXist-db and OIDC to secure my application, so my ConfigFactory uses the BasucAuthMatcher.
 
