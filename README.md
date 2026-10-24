@@ -1,7 +1,7 @@
 # eXist-oidc
 
 This repository provides code for an eXist-db realm and filters to secure eXist-db using the OpenID Connect (OIDC) protocol for Keycloak.
-The current implementation only supports Keycloak but should be easily extendable to support further OIDC servers, by adding classes that implement the `OidcTokenValidator` interface and calling the according constructors inside the `OidcRealm` class.
+The current implementation only supports Keycloak but should be easily extendable to support further OIDC servers.
 The version here was implemented and tested on eXist-db 6.4.1.
 The implementation is based on pac4j and Java 8.
 
