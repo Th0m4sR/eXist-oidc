@@ -1,0 +1,385 @@
+{
+  "actions" : [ {
+    "app" : "jinks",
+    "description" : "Reindex the data",
+    "label" : "Reindex data",
+    "name" : "reindex"
+  }, {
+    "description" : "Rebuild list of ODDs and recompile",
+    "label" : "Fix ODDs",
+    "name" : "fix-odds"
+  }, {
+    "app" : "jinks",
+    "description" : "Download the app as a `.xar` file",
+    "label" : "Download",
+    "name" : "download"
+  }, {
+    "app" : "jinks",
+    "description" : "Sync the app to a directory on the local file system",
+    "label" : "Sync",
+    "name" : "file-sync",
+    "parameters" : [ {
+      "required" : true,
+      "description" : "The path to the target directory",
+      "label" : "Directory",
+      "name" : "target"
+    } ]
+  } ],
+  "profiles" : [ "base10", "demo-data", "theme-base10", "playground", "edition-navigation", "upload", "metadata-editor", "jinntap", "annotate", "forms" ],
+  "_lastModified" : "2026-10-23T23:16:54.327Z",
+  "label" : "oidc",
+  "odds" : [ "teipublisher.odd", "dta.odd", "shakespeare.odd", "vangogh.odd", "osinski.odd", "annotations.odd" ],
+  "editable" : [ "^collection\\.xconf$", "^index\\.xql$", "^modules/navigation[^/]*\\.xql$", "^modules/query[^/]*\\.xql$", "^modules/facets-config\\.xql$" ],
+  "version" : "1.0.0",
+  "id" : "https://e-editiones.org/apps/oidc",
+  "_update" : true,
+  "styles" : [ "https://cdn.jsdelivr.net/npm/theme-toggles@4.10.1/css/classic.min.css", "resources/css/pico-components.css", "resources/css/jinks-theme.css" ],
+  "_noDeploy" : false,
+  "profile-versions" : {
+    "edition-navigation" : "1.0.1",
+    "demo-data" : "1.0.1",
+    "base10" : "1.1.0",
+    "theme-base10" : "1.1.0",
+    "upload" : "1.0.0",
+    "annotate" : "2.0.1",
+    "jinntap" : "1.1.0",
+    "metadata-editor" : "0.2.1",
+    "playground" : "1.1.0",
+    "forms" : "1.0.0"
+  },
+  "depends" : [ "base10", "forms" ],
+  "profile-changes" : {
+    "upload" : {
+      "2.0.0" : "Adds support for multiple formats, currently TEI and JATS. Splits annotate.html into format-specific templates. Existing customizations may need to be updated."
+    }
+  },
+  "changes" : {
+    "2.0.0" : "Adds support for multiple formats, currently TEI and JATS. Splits annotate.html into format-specific templates. Existing customizations may need to be updated."
+  },
+  "template-suffix" : "\\.tpl",
+  "ignore" : [ "repo.xml", "resources/odd/teilite.rng", "resources/css/components.css" ],
+  "target" : "/db/apps/oidc",
+  "menu" : {
+    "language" : true,
+    "delete" : true,
+    "dark-mode" : false,
+    "items" : [ {
+      "url" : "browse.html",
+      "id" : "Start"
+    } ],
+    "login" : true,
+    "download" : true,
+    "search" : true
+  },
+  "theme" : {
+    "layout" : {
+      "class" : "fixed-layout",
+      "search" : "before-top",
+      "footer" : {
+        "mobile" : {
+          "enabled" : true
+        }
+      },
+      "after" : {
+        "width" : "min(30vw, 356px)",
+        "hidden" : false,
+        "toggle" : true,
+        "collapsible" : true
+      },
+      "before" : {
+        "width" : "min(30vw, 356px)",
+        "hidden" : false,
+        "toggle" : true,
+        "collapsible" : true
+      },
+      "max-width" : "84rem"
+    },
+    "menubar" : {
+      "background-color" : "var(--jinks-colors-500)",
+      "color" : "#ffffff",
+      "background-image" : "none"
+    },
+    "icons" : [ "metadata-editor-icons.svg" ],
+    "splash" : {
+      "width" : "320px",
+      "image" : "../images/tei-publisher-logo-color.svg",
+      "height" : "auto"
+    },
+    "body" : {
+      "background-color" : "var(--jinks-colors-100)"
+    },
+    "logo" : {
+      "width" : "140px",
+      "image" : "../images/tei-publisher-logo-contrast-color.svg",
+      "height" : "48px"
+    },
+    "breadcrumbs" : {
+      "max" : "40ch"
+    },
+    "content" : {
+      "max-width" : "70ch"
+    },
+    "texture" : {
+      "background-image" : null
+    },
+    "colors" : {
+      "palettes" : {
+        "green" : "palette-green.css",
+        "teal" : "palette-teal.css",
+        "neutral" : "palette-neutral.css",
+        "blue" : "palette-blue.css",
+        "beige" : "palette-beige.css",
+        "dark" : "palette-dark.css"
+      },
+      "palette" : "neutral"
+    },
+    "fonts" : {
+      "toc" : {
+        "size" : "1.125rem"
+      },
+      "menubar" : {
+        "size" : "14px"
+      },
+      "footnote" : {
+        "size" : "0.9em",
+        "padding" : "0 0 0 .25em"
+      },
+      "base" : {
+        "family" : "'Inter', 'Noto', sans-serif",
+        "line-height" : "1.4",
+        "size" : "16px",
+        "weight" : "400"
+      },
+      "heading" : {
+        "family" : "'Inter', 'Noto', sans-serif",
+        "size" : "1.2rem",
+        "weight" : "600"
+      },
+      "breadcrumbs" : {
+        "size" : "0.9rem"
+      },
+      "content" : {
+        "family" : "JunicodeVF, Georgia, 'Times New Roman', serif",
+        "line-height" : "150%",
+        "size" : "1.25rem",
+        "weight" : "400"
+      }
+    },
+    "toolbar" : {
+      "background-color" : "var(--jinks-colors-200)",
+      "color" : "var(--jinks-color-primary)"
+    }
+  },
+  "features" : {
+    "collab" : {
+      "server" : "wss://dev.tei-publisher.com/collab",
+      "enable" : false
+    },
+    "menubar" : true,
+    "upload" : {
+      "target" : "",
+      "accept" : ".xml, .tei, .odd, .docx, .md, .mei",
+      "enabled" : true
+    },
+    "annotate" : {
+      "toolbar-button" : true,
+      "configs" : {
+        "tei" : {
+          "id" : "http://teipublisher.com/api/annotations/config/tei",
+          "path" : "tei-annotation-config.xqm",
+          "key" : "key"
+        }
+      }
+    },
+    "jinntap" : {
+      "default-format" : "tei",
+      "toolbar-button" : true,
+      "version" : "2.0.0",
+      "formats" : {
+        "tei" : {
+          "schema" : "resources/schema/tei-schema.json"
+        },
+        "jats" : {
+          "schema" : "resources/schema/jats-schema.json"
+        }
+      },
+      "cdn" : "https://cdn.jsdelivr.net/npm/@jinntec/jinntap",
+      "enabled" : false
+    },
+    "toolbar" : {
+      "zoom" : true,
+      "navigation" : true,
+      "enabled" : true,
+      "progress" : {
+        "subscribe" : "transcription",
+        "enabled" : true
+      }
+    },
+    "hero" : false,
+    "toc" : {
+      "collapse" : false,
+      "enabled" : false
+    },
+    "edition-navigation" : {
+      "in-correspondence" : false,
+      "navigation" : false
+    },
+    "browse" : {
+      "sort" : {
+        "options" : [ {
+          "label" : "Category",
+          "value" : "category",
+          "key" : "browse.category"
+        }, {
+          "label" : "Title",
+          "value" : "title",
+          "key" : "browse.title"
+        }, {
+          "label" : "Author",
+          "value" : "author",
+          "key" : "browse.author"
+        } ],
+        "default" : "category"
+      },
+      "field" : {
+        "options" : [ {
+          "label" : "Content",
+          "value" : "text",
+          "key" : "search.content"
+        }, {
+          "label" : "Title",
+          "value" : "title",
+          "key" : "search.title"
+        } ],
+        "default" : "text"
+      }
+    },
+    "toolbar-toggles" : {
+      "toggle-reading" : false,
+      "enabled" : false
+    },
+    "playground" : {
+      "enabled" : true
+    },
+    "forms" : {
+      "fore" : {
+        "version" : "2.9.0",
+        "cdn" : "https://cdn.jsdelivr.net/npm/@jinntec/fore"
+      }
+    }
+  },
+  "indexing" : {
+    "tei" : {
+      "enable" : true,
+      "context" : "div"
+    },
+    "docbook" : {
+      "enable" : true
+    },
+    "jats" : {
+      "enable" : true
+    }
+  },
+  "pkg" : {
+    "website" : "http://tei-publisher.org",
+    "abbrev" : "oidc",
+    "author" : "Wolfgang Meier et al.",
+    "version" : "1.1.0",
+    "dependencies" : [ {
+      "semver" : "1",
+      "package" : "http://e-editiones.org/roaster"
+    }, {
+      "semver-min" : "6.1",
+      "package" : "http://existsolutions.com/apps/tei-publisher-lib",
+      "semver-max" : "6"
+    }, {
+      "semver" : "1",
+      "package" : "http://tei-publisher.com/library/jinks-templates"
+    }, {
+      "semver" : "6",
+      "package" : "http://expath.org/ns/crypto"
+    }, {
+      "semver" : "2",
+      "package" : "http://existsolutions.com/ns/jwt"
+    } ],
+    "permissions" : "rw-r--r--",
+    "user" : {
+      "password" : "simple",
+      "name" : "tei",
+      "group" : "tei"
+    }
+  },
+  "description" : "",
+  "_dry" : false,
+  "source" : "/db/apps/jinks/profiles/forms",
+  "type" : "feature",
+  "skip" : [ "^doc/.*$", "setup.xql", "config.json" ],
+  "category" : "workflow",
+  "_overwrite" : "quick",
+  "defaults" : {
+    "language" : "en",
+    "language-label" : "label",
+    "data" : "data",
+    "address-by-id" : false,
+    "odd-root" : "resources/odd",
+    "data-default" : "sermons",
+    "direction" : "ltr",
+    "template" : "basic.html",
+    "browse" : "browse.html",
+    "search" : "div",
+    "languages" : [ "bg", "cs", "zh_CN", "zh_TW", "de", "en", "es", "el", "fr", "fi", "it", "ka", "nl", "no", "pl", "pt", "ro", "ru", "sl", "sv", "tr", "uk" ],
+    "upload" : "annotate",
+    "view" : "div",
+    "data-exclude" : [ "doc($config:data-root || '/taxonomy.xml')//tei:text", "collection($config:register-root)//tei:text" ],
+    "odd" : "teipublisher.odd",
+    "pagination" : {
+      "fill" : 5,
+      "depth" : 10
+    },
+    "media" : [ "web", "print", "epub" ],
+    "register-root" : "registers"
+  },
+  "templating" : {
+    "use" : [ "templates/playground-blocks.html", "templates/edition-navigation-blocks.html", "templates/upload-blocks.html", "templates/metadata-editor-blocks.html", "templates/editor-blocks.html", "templates/annotation-blocks.html", "templates/forms-blocks.html" ],
+    "modules" : {
+      "http://teipublisher.com/ns/templates/browse" : {
+        "at" : "modules/templates/browse.xqm",
+        "prefix" : "browse"
+      },
+      "http://teipublisher.com/ns/templates/page" : {
+        "at" : "modules/templates/page.xqm",
+        "prefix" : "page"
+      }
+    }
+  },
+  "script" : {
+    "custom" : [ ],
+    "webcomponents" : "3.6.8",
+    "extra-components" : [ ],
+    "cdn" : "https://cdn.jsdelivr.net/npm/@teipublisher/pb-components"
+  },
+  "order" : 100,
+  "$schema" : "../../schema/jinks.json",
+  "generator" : {
+    "templates" : {
+      "config-odd-available" : "xmldb:get-child-resources($config:odd-root)[ends-with(., '.odd')][not(. = ('teipublisher_odds.odd', 'teilite.odd'))]"
+    }
+  },
+  "i18n" : [ "edition-navigation", "annotations" ],
+  "api" : [ {
+    "spec" : "metadata-editor-api.json",
+    "prefix" : "meta",
+    "id" : "http://teipublisher.com/api/metadata-editor",
+    "path" : "metadata-editor-api.xql"
+  }, {
+    "spec" : "jinntap-api.json",
+    "prefix" : "jtapi",
+    "id" : "http://e-editiones.org/api/jinntap",
+    "path" : "jinntap-api.xql"
+  }, {
+    "spec" : "annotations/api.json",
+    "prefix" : "anno",
+    "id" : "http://teipublisher.com/api/annotations",
+    "path" : "annotations/annotations.xql"
+  } ]
+}

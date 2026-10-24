@@ -1,0 +1,501 @@
+:root {
+    --jinn-tap-background-color: var(--jinks-background-color-light);
+    --jinn-tap-unknown-font-size: var(--jinks-font-size-smaller);
+    --jinn-tap-unknown-color: #ef4646;
+    --jinn-tap-content-max-width: var(--pb-view-max-width);
+    --jinn-tap-connector-panel-width: 20rem;
+}
+
+[data-theme="dark"] {
+    --jinn-tap-background-color: var(--jinks-background-color-dark);
+}
+
+jinn-tap,
+jinn-tap .jinn-tap-toolbar {
+    /* Map JinnTap toolbar tokens onto the workbench/jinks theme. Also set on
+       .jinn-tap-toolbar because the library redefines the same tokens there
+       (for externally hosted toolbars), which would otherwise shadow inheritance. */
+    --toolbar-bg: var(--jinks-toolbar-background-color);
+    --toolbar-fg: var(--jinks-toolbar-color);
+    --toolbar-separator: color-mix(in srgb, var(--jinks-toolbar-color) 18%, transparent);
+    --toolbar-hover: color-mix(in srgb, var(--jinks-toolbar-color) 8%, transparent);
+    --toolbar-active: color-mix(in srgb, var(--jinks-toolbar-color) 14%, transparent);
+    --toolbar-mark: color-mix(in srgb, var(--jinks-colors-accent) 28%, transparent);
+    --toolbar-mark-fg: var(--jinks-toolbar-color);
+    --toolbar-btn-size: var(--jinks-toolbar-segment-cell-width, 2.25rem);
+    --toolbar-dropdown-bg: var(--jinks-background-color-light, var(--jinks-colors-light));
+    --toolbar-dropdown-border: var(--jinks-color-border, var(--jinks-colors-400));
+    --toolbar-dropdown-shadow: 0 2px 8px color-mix(in srgb, var(--jinks-toolbar-color) 16%, transparent);
+    --toolbar-focus-ring: var(--jinks-form-focus-color2, rgba(59, 130, 246, 0.45));
+    /* Shared inset for toolbar list + breadcrumb + editor. Set here (not only on
+       jinn-tap) so it survives library CSS that loads after this file. */
+    --jinn-tap-chrome-inline: var(--s1);
+}
+
+jinn-tap {
+    column-gap: 0;
+}
+
+/* Scroll happens inside jinn-tap, not the page main pane. */
+.fixed-layout > main:has(> jinn-tap) {
+    overflow: hidden;
+    min-height: 0;
+}
+
+jinn-tap .editor-area {
+    font-family: var(--jinks-base-font-family);
+    font-size: var(--jinks-content-font-size);
+    line-height: var(--jinks-content-line-height);
+}
+
+jinn-tap .editor-area,
+jinn-tap .code-area {
+    max-width: var(--pb-view-max-width);
+    width: 100%;
+    justify-self: center;
+    margin-inline: auto;
+    padding-inline: var(--jinn-tap-chrome-inline);
+    padding-top: var(--s-1);
+}
+
+/* Vertical rhythm only — horizontal inset comes from --jinn-tap-chrome-inline
+   on the toolbar list and breadcrumb nav in the library. */
+jinn-tap > nav:has(.toolbar) {
+    padding-block: var(--s-3);
+    padding-inline: 0;
+}
+
+/* Neutralize page-level .toolbar chrome from theme-base10 — it also matches
+   ul.toolbar.jinn-tap-toolbar because of the shared class name. */
+jinn-tap .toolbar.jinn-tap-toolbar {
+    background: none;
+    background-image: none;
+    gap: var(--jinks-toolbar-segment-gap, var(--s-2));
+    color: var(--toolbar-fg);
+    --pico-color: var(--toolbar-fg);
+}
+
+/* theme-base10 controls.css adds summary::after chevrons on .dropdown;
+   jinn-tap already ships a real .toolbar-dropdown-caret — hide the duplicate. */
+jinn-tap .toolbar details.dropdown > summary::after,
+.jinn-tap-toolbar details.dropdown > summary::after {
+    display: none !important;
+    content: none !important;
+    background-image: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+jinn-tap .logo {
+    background: none;
+}
+
+/* theme-base10 sets .toolbar a { color: … !important } — restore the token. */
+jinn-tap .toolbar a,
+jinn-tap .jinn-tap-toolbar a {
+    color: var(--toolbar-fg) !important;
+}
+
+jinn-tap .toolbar i,
+jinn-tap .toolbar-button i {
+    --jinks-base-line-height: unset;
+    font-size: var(--jinks-toolbar-segment-icon-size, 1.15rem);
+}
+
+/* Theme spacing / muted colour on top of library breadcrumb chrome. */
+jinn-tap > nav.navigation-panel {
+    padding-block: var(--s-3) var(--s-2);
+    font-size: var(--jinks-font-size-smaller);
+    color: var(--jinks-muted-color, var(--pico-muted-color));
+}
+
+jinn-tap > nav.navigation-panel li + li::before {
+    margin: 0 var(--s-2);
+    color: var(--jinks-muted-color, var(--pico-muted-color));
+    opacity: 1;
+}
+
+.jinn-tap-aside .logo {
+    width: auto;
+    height: 92px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background-image: none;
+}
+
+jinn-toast {
+    font-size: var(--pb-footnote-font-size);
+}
+
+.attribute-panel summary {
+    margin-bottom: var(--s1);
+}
+
+/* Library ships a dark filled Apply button (fixed 5px radius). Remap onto
+   theme segment chrome so it matches modern-theme / page controls. */
+jinn-tap > .jinn-tap-aside .attribute-panel footer button,
+.jinn-tap-aside .attribute-panel footer button {
+    height: var(--jinks-toolbar-segment-height, 2.25rem);
+    min-height: 0;
+    padding-inline: 0.625rem;
+    gap: 0.375rem;
+    border: 1px solid var(--jinks-toolbar-segment-border-color, var(--jinks-colors-400));
+    border-radius: var(--jinks-toolbar-segment-radius, var(--jinks-form-border-radius, 0));
+    background: var(--jinks-toolbar-segment-bg, var(--jinks-colors-100));
+    color: var(--jinks-toolbar-segment-color, var(--jinks-toolbar-color));
+    box-shadow: none;
+    font-weight: 500;
+    transition: var(--jinks-toolbar-segment-transition, background-color 0.12s ease, color 0.12s ease);
+}
+
+jinn-tap > .jinn-tap-aside .attribute-panel footer button:hover,
+.jinn-tap-aside .attribute-panel footer button:hover {
+    filter: none;
+    background: var(--jinks-toolbar-segment-hover-bg, var(--jinks-colors-500));
+    border-color: var(--jinks-toolbar-segment-hover-bg, var(--jinks-colors-500));
+    color: var(--jinks-toolbar-segment-hover-color, var(--jinks-colors-light));
+}
+
+jinn-tap > .jinn-tap-aside .attribute-panel footer button svg,
+.jinn-tap-aside .attribute-panel footer button svg {
+    width: var(--jinks-toolbar-segment-icon-size, 1.15rem);
+    height: var(--jinks-toolbar-segment-icon-size, 1.15rem);
+}
+
+.table-menu {
+    margin-inline: var(--s1);
+    background-color: var(--jinn-tap-background-color);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+    border-radius: var(--jinks-form-border-radius);
+    padding: 0 var(--s0);
+
+    .toolbar {
+        flex-wrap: nowrap;
+    }
+}
+
+/* Styles for content elements */
+jats-sec,
+jats-p,
+jats-item,
+jats-title {
+    display: block;
+}
+
+jats-title {
+    font-weight: 700;
+    line-height: 1.125;
+}
+
+jats-sec > jats-title {
+    margin-top: 3rem;
+    font-size: 2.25rem;
+}
+
+.tiptap > jats-sec:first-child > jats-title:first-child {
+    margin-top: 0;
+}
+
+jats-sec > jats-sec > jats-title {
+    font-style: italic;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    margin-top: 2.625rem;
+}
+
+jats-sec > jats-sec > jats-sec > jats-title {
+    font-size: 1.5rem;
+    line-height: 1.175;
+    margin-top: 2.25rem;
+}
+
+jats-sec > jats-sec > jats-sec > jats-sec > jats-title {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin-top: 1.874rem;
+}
+
+jats-sec > jats-sec > jats-sec > jats-sec > jats-sec > jats-title {
+    font-size: 1.125rem;
+    line-height: 1.25;
+    margin-top: 1.5rem;
+}
+
+jats-figure > jats-title {
+    font-size: 1rem;
+    line-height: 1.25;
+}
+
+jats-sec {
+    border-right: 2px solid var(--tei-div-color-0);
+    margin-right: 2px;
+    padding-right: 4px;
+}
+
+jats-sec > jats-sec {
+    border-right: 2px solid var(--tei-div-color-1);
+}
+
+jats-sec > jats-sec > jats-sec {
+    border-right: 2px solid var(--tei-div-color-2);
+}
+
+jats-sec > jats-sec {
+    border-right: 2px solid var(--tei-div-color-3);
+}
+
+jats-sec > jats-sec > jats-sec {
+    border-right: 2px solid var(--tei-div-color-4);
+}
+
+jats-sec > jats-sec > jats-sec > jats-sec {
+    border-right: 2px solid var(--tei-div-color-5);
+}
+
+jats-p {
+    display: block;
+    margin: 0.5em 0;
+    position: relative;
+}
+
+jats-bold {
+    font-weight: bold;
+}
+
+jats-italic {
+    font-style: italic;
+}
+
+jats-underline {
+    text-decoration: underline;
+}
+
+jats-fig {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+jats-fig > img {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+jats-fig > jats-caption {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+jats-named-content[content-type='person'] {
+    color: #a83410;
+}
+
+jats-named-content[content-type='place'] {
+    color: #e48500;
+}
+
+jats-named-content[content-type='organization'] {
+    color: #f45d2c;
+}
+
+jats-named-content[content-type='term'] {
+    color: #9236a4;
+}
+
+jats-list {
+    display: block;
+    list-style-type: disc;
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+jats-list[list-type='order'] {
+    list-style-type: decimal;
+}
+
+jats-list > jats-title {
+    font-size: 1.25rem;
+}
+
+jats-list-item {
+    display: list-item;
+    list-style-position: outside;
+    margin: 0.5em 0;
+}
+
+jats-fnGroup {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+jats-fnGroup:empty::before {
+    display: none;
+}
+
+jats-fn {
+    display: list-item;
+    padding-left: 2rem;
+}
+
+jats-fn::before {
+    margin-left: -2rem;
+    float: left;
+}
+
+jats-fn::before {
+    content: '?';
+    margin-right: 0.5rem;
+}
+
+jats-fn[n]::before {
+    content: attr(n);
+    margin-right: 0.5rem;
+}
+
+jats-fn[_reference]::before {
+    content: attr(_reference) '.';
+}
+
+jats-fn:not([_reference]) {
+    color: #9e9e9e;
+}
+
+jats-xref {
+    font-style: italic;
+    text-decoration: none;
+}
+
+jats-xref[ref-type="bibr"] {
+    color: #004499;
+}
+
+jats-xref[ref-type="bibr"]::after {
+    content: attr(ref-type);
+    font-size: 0.75rem;
+    vertical-align: super;
+    line-height: 1;
+}
+
+jats-xref[ref-type="fn"] {
+    font-size: 0.75rem;
+    font-style: normal;
+    vertical-align: super;
+    cursor: pointer;
+    line-height: 1;
+}
+
+jats-xref[ref-type="fn"]::before {
+    content: attr(_reference);
+}
+
+jats-xref[ref-type="fn"]::after {
+    content: '\200B';
+}
+
+jats-abbr {
+    background-color: #9236a4;
+    color: white;
+}
+
+tr:has(td:first-child jats-lb) {
+    /* Position the lb widget relative to here */
+    position: relative;
+    border-top: 4px double #ffa500;
+
+    td:first-child jats-lb {
+        position: absolute;
+        /* Place this just next to the table, in the middle of the border line to not overlap any table content */
+        top: -1.5rem;
+        width: 2rem;
+        height: 2rem;
+        float: left;
+        left: -2rem;
+        display: inline-block;
+
+        /* Display this the same as an lb in normal content */
+        content: 'lb';
+        background-color: #ffa500;
+        font-size: 1rem;
+        font-weight: normal;
+        border-radius: 4px;
+        padding: 2px 6px;
+        cursor: pointer;
+    }
+}
+
+jats-p.is-empty::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    position: absolute;
+    height: 0;
+    pointer-events: none;
+}
+
+a.reference::after {
+    content: '↗';
+    margin-left: 4px;
+    font-size: 0.75rem;
+    vertical-align: super;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+}
+
+a.reference:hover::after {
+    color: #004499;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+jats-disp-quote {
+    &::before {
+        content: """;
+        font-size: var(--s2);
+        position: absolute;
+    }
+    > * {
+        padding-left: 2rem
+    }
+}
+
+.ProseMirror-selectednode {
+    outline: 2px solid var(--pico-primary);
+}
+
+.table-menu {
+    .divider::before {
+        content: '';
+        height: 2rem;
+        border-left: 4px solid var(--pico-table-border-color);
+        border-radius: 2px;
+        display: block;
+    }
+}
+
+.selectedCell {
+    background-color: var(--pico-form-element-selected-background-color);
+}
+
+.debug *::after {
+    display: inline-block;
+    max-width: 7ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-left: 2px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
+    font-weight: normal;
+    color: white;
+    vertical-align: middle;
+}

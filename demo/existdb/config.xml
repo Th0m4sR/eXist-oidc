@@ -1,0 +1,7 @@
+<security-manager xmlns="http://exist-db.org/Configuration" version="2.1">
+    <authentication-entry-point>/authentication/login</authentication-entry-point>
+    <realm id="Oidc" version="1.0" issuer="http://localhost:8556/realms/oidc-demo" audience="account" usernameClaim="preferred_username" groupsClaim="groups" defaultGroupName="guest" clientId="teipublisher">
+        <group external="/KeycloakTEI" local="tei"></group>
+    </realm>
+<!--<events></events>-->
+</security-manager>

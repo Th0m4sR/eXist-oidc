@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div>
+    <fx-group ref="instance('default')//titleStmt">
+        <fieldset>
+            <label> Title </label>
+            <fx-control ref="title"/>
+        </fieldset>
+        <fx-repeat ref="author">
+            <template>
+                <fieldset>
+                    <article>
+                        <label> Author </label>
+                        <fx-control ref="."/>
+                        <footer>
+                            <!-- Prevent removing the last author -->
+                            <fx-group ref=".[count(../author) = 1]">
+                                <button disabled="disabled">Delete</button>
+                            </fx-group>
+                            <fx-group ref=".[count(../author) gt 1]">
+                                <fx-trigger>
+                                    <button>Delete</button>
+                                    <fx-delete ref="."> </fx-delete>
+                                </fx-trigger>
+                            </fx-group>
+                        </footer>
+                    </article>
+                </fieldset>
+            </template>
+        </fx-repeat>
+        <fx-trigger>
+            <button>Add new author</button>
+            <fx-insert ref="author"> </fx-insert>
+        </fx-trigger>
+    </fx-group>
+</div>

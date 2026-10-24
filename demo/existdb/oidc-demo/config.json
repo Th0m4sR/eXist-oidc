@@ -1,0 +1,9 @@
+{
+  "label" : "oidc",
+  "id" : "https://e-editiones.org/apps/oidc",
+  "extends" : [ "base10", "demo-data", "theme-base10", "playground", "edition-navigation", "upload", "metadata-editor", "jinntap", "annotate", "forms" ],
+  "pkg" : {
+    "abbrev" : "oidc"
+  },
+  "description" : ""
+}

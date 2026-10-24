@@ -1,0 +1,577 @@
+:root {
+    --jinn-tap-background-color: var(--jinks-background-color-light);
+    --jinn-tap-unknown-font-size: var(--jinks-font-size-smaller);
+    --jinn-tap-unknown-color: #ef4646;
+    --jinn-tap-content-max-width: var(--pb-view-max-width);
+    --jinn-tap-connector-panel-width: 20rem;
+}
+
+[data-theme="dark"] {
+    --jinn-tap-background-color: var(--jinks-background-color-dark);
+}
+
+jinn-tap,
+jinn-tap .jinn-tap-toolbar {
+    /* Map JinnTap toolbar tokens onto the workbench/jinks theme. Also set on
+       .jinn-tap-toolbar because the library redefines the same tokens there
+       (for externally hosted toolbars), which would otherwise shadow inheritance. */
+    --jinn-tap-toolbar-bg: var(--jinks-toolbar-background-color);
+    --jinn-tap-toolbar-fg: var(--jinks-toolbar-color);
+    --jinn-tap-toolbar-separator: color-mix(in srgb, var(--jinks-toolbar-color) 18%, transparent);
+    --jinn-tap-toolbar-hover: color-mix(in srgb, var(--jinks-toolbar-color) 8%, transparent);
+    --jinn-tap-toolbar-active: color-mix(in srgb, var(--jinks-toolbar-color) 14%, transparent);
+    --jinn-tap-toolbar-mark: color-mix(in srgb, var(--jinks-colors-accent) 28%, transparent);
+    --jinn-tap-toolbar-mark-fg: var(--jinks-toolbar-color);
+    --jinn-tap-toolbar-btn-size: var(--jinks-toolbar-segment-cell-width, 2.25rem);
+    --jinn-tap-toolbar-dropdown-bg: var(--jinks-background-color-light, var(--jinks-colors-light));
+    --jinn-tap-toolbar-dropdown-border: var(--jinks-color-border, var(--jinks-colors-400));
+    --jinn-tap-toolbar-dropdown-shadow: 0 2px 8px color-mix(in srgb, var(--jinks-toolbar-color) 16%, transparent);
+    --jinn-tap-toolbar-focus-ring: var(--jinks-form-focus-color2, rgba(59, 130, 246, 0.45));
+    /* Shared inset for toolbar list + breadcrumb + editor. Set here (not only on
+       jinn-tap) so it survives library CSS that loads after this file. */
+    --jinn-tap-chrome-inline: var(--s1);
+}
+
+jinn-tap {
+    column-gap: 0;
+}
+
+/* Scroll happens inside jinn-tap, not the page main pane. */
+.fixed-layout > main:has(> jinn-tap) {
+    overflow: hidden;
+    min-height: 0;
+}
+
+jinn-tap .editor-area {
+    font-family: var(--jinks-base-font-family);
+    font-size: var(--jinks-content-font-size);
+    line-height: var(--jinks-content-line-height);
+}
+
+jinn-tap .editor-area,
+jinn-tap .code-area {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--jinn-tap-chrome-inline);
+    padding-top: var(--s-1);
+}
+
+/* Vertical rhythm only — horizontal inset comes from --jinn-tap-chrome-inline
+   on the toolbar list and breadcrumb nav in the library. */
+jinn-tap > nav:has(.toolbar) {
+    padding-block: var(--s-3);
+    padding-inline: 0;
+}
+
+/* Neutralize page-level .toolbar chrome from theme-base10 — it also matches
+   ul.toolbar.jinn-tap-toolbar because of the shared class name. */
+jinn-tap .toolbar.jinn-tap-toolbar {
+    background: none;
+    background-image: none;
+    gap: var(--jinks-toolbar-segment-gap, var(--s-2));
+    color: var(--jinn-tap-toolbar-fg);
+    --pico-color: var(--toolbar-fg);
+}
+
+/* theme-base10 controls.css adds summary::after chevrons on .dropdown;
+   jinn-tap already ships a real .toolbar-dropdown-caret — hide the duplicate. */
+jinn-tap .toolbar details.dropdown > summary::after,
+.jinn-tap-toolbar details.dropdown > summary::after {
+    display: none !important;
+    content: none !important;
+    background-image: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+jinn-tap .logo {
+    background: none;
+}
+
+/* theme-base10 sets .toolbar a { color: … !important } — restore the token. */
+jinn-tap .toolbar a,
+jinn-tap .jinn-tap-toolbar a {
+    color: var(--jinn-tap-toolbar-fg) !important;
+}
+
+jinn-tap .toolbar i,
+jinn-tap .toolbar-button i {
+    --jinks-base-line-height: unset;
+    font-size: var(--jinks-toolbar-segment-icon-size, 1.15rem);
+}
+
+/* Theme spacing / muted colour on top of library breadcrumb chrome. */
+jinn-tap > nav.navigation-panel {
+    padding-block: var(--s-3) var(--s-2);
+    font-size: var(--jinks-font-size-smaller);
+    color: var(--jinks-muted-color, var(--pico-muted-color));
+}
+
+jinn-tap > nav.navigation-panel li + li::before {
+    margin: 0 var(--s-2);
+    color: var(--jinks-muted-color, var(--pico-muted-color));
+    opacity: 1;
+}
+
+.after-top .logo {
+    width: auto;
+    height: var(--jinks-logo-image-height);
+}
+
+jinn-toast {
+    font-size: var(--pb-footnote-font-size);
+}
+
+.attribute-panel summary {
+    margin-bottom: var(--s1);
+}
+
+/* Library ships a dark filled Apply button (fixed 5px radius). Remap onto
+   theme segment chrome so it matches modern-theme / page controls. */
+jinn-tap > .jinn-tap-aside .attribute-panel footer button,
+.jinn-tap-aside .attribute-panel footer button {
+    height: var(--jinks-toolbar-segment-height, 2.25rem);
+    min-height: 0;
+    padding-inline: 0.625rem;
+    gap: 0.375rem;
+    border: 1px solid var(--jinks-toolbar-segment-border-color, var(--jinks-colors-400));
+    border-radius: var(--jinks-toolbar-segment-radius, var(--jinks-form-border-radius, 0));
+    background: var(--jinks-toolbar-segment-bg, var(--jinks-colors-100));
+    color: var(--jinks-toolbar-segment-color, var(--jinks-toolbar-color));
+    box-shadow: none;
+    font-weight: 500;
+    transition: var(--jinks-toolbar-segment-transition, background-color 0.12s ease, color 0.12s ease);
+}
+
+jinn-tap > .jinn-tap-aside .attribute-panel footer button:hover,
+.jinn-tap-aside .attribute-panel footer button:hover {
+    filter: none;
+    background: var(--jinks-toolbar-segment-hover-bg, var(--jinks-colors-500));
+    border-color: var(--jinks-toolbar-segment-hover-bg, var(--jinks-colors-500));
+    color: var(--jinks-toolbar-segment-hover-color, var(--jinks-colors-light));
+}
+
+jinn-tap > .jinn-tap-aside .attribute-panel footer button svg,
+.jinn-tap-aside .attribute-panel footer button svg {
+    width: var(--jinks-toolbar-segment-icon-size, 1.15rem);
+    height: var(--jinks-toolbar-segment-icon-size, 1.15rem);
+}
+
+.table-menu {
+    margin-inline: var(--s1);
+    background-color: var(--jinn-tap-background-color);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+    border-radius: var(--jinks-form-border-radius);
+    padding: 0 var(--s0);
+
+    .toolbar {
+        flex-wrap: nowrap;
+    }
+}
+
+/* Styles for content elements */
+
+tei-div,
+tei-p,
+tei-item,
+tei-head {
+    display: block;
+}
+
+tei-head {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.125;
+}
+
+tei-div > tei-head {
+    margin-top: 3rem;
+}
+
+.tiptap > tei-div:first-child > tei-head:first-child {
+    margin-top: 0;
+}
+
+tei-div > tei-div > tei-head {
+    font-style: italic;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    margin-top: 2.625rem;
+}
+
+tei-div > tei-div > tei-div > tei-head {
+    font-size: 1.5rem;
+    line-height: 1.175;
+    margin-top: 2.25rem;
+}
+
+tei-div > tei-div > tei-div > tei-div > tei-head {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    margin-top: 1.874rem;
+}
+
+tei-div > tei-div > tei-div > tei-div > tei-div > tei-head {
+    font-size: 1.125rem;
+    line-height: 1.25;
+    margin-top: 1.5rem;
+}
+
+tei-figure > tei-head,
+tei-table > tei-head {
+    font-size: 1rem;
+    line-height: 1.25;
+}
+
+tei-title[level='m'] {
+    font-style: italic;
+}
+
+tei-div {
+    border-right: 2px solid var(--tei-div-color-0);
+    margin-right: 2px;
+    padding-right: 4px;
+}
+
+tei-div > tei-div {
+    border-right: 2px solid var(--tei-div-color-1);
+}
+
+tei-div > tei-div > tei-div {
+    border-right: 2px solid var(--tei-div-color-2);
+}
+
+tei-div > tei-div {
+    border-right: 2px solid var(--tei-div-color-3);
+}
+
+tei-div > tei-div > tei-div {
+    border-right: 2px solid var(--tei-div-color-4);
+}
+
+tei-div > tei-div > tei-div > tei-div {
+    border-right: 2px solid var(--tei-div-color-5);
+}
+
+tei-p {
+    display: block;
+    margin: 0.5em 0;
+    position: relative;
+}
+
+[rend='center'] {
+    text-align: center;
+}
+
+[rend='right'] {
+    text-align: right;
+}
+
+[rend='justify'] {
+    text-align: justify;
+}
+
+tei-hi[rend='b'] {
+    font-weight: bold;
+}
+
+tei-hi[rend='i'] {
+    font-style: italic;
+}
+
+tei-hi[rend='u'] {
+    text-decoration: underline;
+}
+
+tei-hi[rend='code'] {
+    font-family: monospace;
+}
+
+tei-figure {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+tei-figure > img {
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+tei-figure > tei-figDesc {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+}
+
+tei-figure > tei-head {
+    text-align: right;
+}
+
+tei-persname {
+    color: #a83410;
+}
+
+tei-placeName {
+    color: #e48500;
+}
+
+tei-orgName {
+    color: #f45d2c;
+}
+
+tei-term {
+    color: #9236a4;
+}
+
+tei-list,
+tei-listAnnotation {
+    display: block;
+    list-style-type: disc;
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+tei-item > tei-list {
+    margin-top: 0;
+}
+
+tei-list[rend='ordered'] {
+    list-style-type: decimal;
+}
+
+tei-list > tei-head {
+    font-size: 1.25rem;
+}
+
+tei-item,
+tei-note {
+    display: list-item;
+    list-style-position: outside;
+    margin: 0.5em 0;
+}
+
+tei-listAnnotation {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+tei-listAnnotation:empty::before {
+    display: none;
+}
+
+tei-opener,
+tei-closer,
+tei-signed,
+tei-dateline {
+    display: block;
+}
+
+tei-opener {
+    margin: .75rem 0 1rem 0;
+}
+
+tei-closer {
+    margin-top: 1rem;
+}
+
+tei-dateline {
+    text-align: right;
+}
+
+tei-listAnnotation::before {
+    padding: 1rem 0 0;
+    margin-top: 2rem;
+    border-top: 1px solid #ccc;
+    content: '';
+    display: block;
+    width: 220px;
+}
+
+tei-note {
+    padding-left: 2rem;
+}
+
+tei-note::before {
+    margin-left: -2rem;
+    float: left;
+}
+
+tei-note::before {
+    content: '?';
+    margin-right: 0.5rem;
+}
+tei-note[n]::before {
+    content: attr(n);
+    margin-right: 0.5rem;
+}
+
+tei-note[_reference]::before {
+    content: attr(_reference) '.';
+}
+
+tei-note:not([_reference]) {
+    color: #9e9e9e;
+}
+
+tei-anchor {
+    font-size: 0.85rem;
+    vertical-align: super;
+    cursor: pointer;
+    line-height: 1;
+}
+
+tei-anchor::before {
+    content: attr(_reference);
+}
+tei-anchor::after {
+    content: '\200B';
+}
+
+tei-abbr {
+    background-color: #9236a4;
+    color: white;
+}
+
+tei-expan {
+    background-color: #db90e8;
+    color: white;
+}
+
+tei-gap {
+    color: #9e9e9e;
+}
+
+tei-supplied {
+    text-decoration: underline dotted;
+    color: #9e9e9e;
+}
+
+tei-unclear {
+    color: #f06048;
+}
+
+tei-pb,
+tei-lb {
+    display: inline-block;
+    background-color: #ffa500;
+    font-size: 1rem;
+    font-weight: normal;
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+tr:has(td:first-child tei-pb) {
+    /* Position the pb widget relative to here */
+    position: relative;
+    border-top: 4px double #ffa500;
+
+    td:first-child tei-pb {
+        position: absolute;
+        /* Place this just next to the table, in the middle of the border line to not overlap any table content */
+        top: -1.5rem;
+        width: 2rem;
+        height: 2rem;
+        float: left;
+        left: -2rem;
+        display: inline-block;
+
+        /* Display this the same as an lb in normal content */
+        content: 'pb';
+        background-color: #ffa500;
+        font-size: 1rem;
+        font-weight: normal;
+        border-radius: 4px;
+        padding: 2px 6px;
+        cursor: pointer;
+    }
+}
+
+tei-lb {
+    display: inline;
+}
+
+tei-lb::after {
+    content: '\A';
+    white-space: pre;
+}
+
+tei-p.is-empty::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    position: absolute;
+    height: 0;
+    pointer-events: none;
+}
+
+a.reference::after {
+    content: '↗';
+    margin-left: 4px;
+    font-size: 0.75rem;
+    vertical-align: super;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+}
+
+a.reference:hover::after {
+    color: #004499;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+tei-ref {
+    color: var(--pico-primary);
+    text-decoration: underline;
+}
+
+tei-quote{
+    &::before {
+        content: "“";
+        font-size: var(--s2);
+        position: absolute;
+    }
+    > * {
+        padding-left: 2rem
+    }
+}
+
+.ProseMirror-selectednode {
+    outline: 2px solid var(--pico-primary);
+}
+
+.table-menu {
+    .divider::before {
+        content: '';
+        height: 2rem;
+        border-left: 4px solid var(--pico-table-border-color);
+        border-radius: 2px;
+        display: block;
+    }
+}
+
+.selectedCell {
+    background-color: var(--pico-form-element-selected-background-color);
+}
+
+.debug *::after {
+    display: inline-block;
+    max-width: 7ch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-left: 2px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
+    font-weight: normal;
+    color: white;
+    vertical-align: middle;
+}

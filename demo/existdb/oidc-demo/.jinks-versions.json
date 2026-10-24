@@ -1,0 +1,15 @@
+{
+  "profiles" : {
+    "edition-navigation" : "1.0.1",
+    "demo-data" : "1.0.1",
+    "base10" : "1.1.0",
+    "theme-base10" : "1.1.0",
+    "upload" : "1.0.0",
+    "annotate" : "2.0.1",
+    "jinntap" : "1.1.0",
+    "metadata-editor" : "0.2.1",
+    "playground" : "1.1.0",
+    "forms" : "1.0.0"
+  },
+  "jinks" : "11.0.1"
+}

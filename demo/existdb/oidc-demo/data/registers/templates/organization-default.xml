@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orgList xmlns="http://www.tei-c.org/ns/1.0" xml:id="organization-default">
+    <org xml:id="organization-NEW">
+        <orgName type="main"/>
+        <orgName type="sort"/>
+        <note/>
+    </org>
+</orgList>

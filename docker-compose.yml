@@ -1,0 +1,39 @@
+networks:
+  default:
+
+services:
+  existdb:
+    build:
+      context: .
+      dockerfile: demo/existdb/exist.Dockerfile
+    restart: ${RESTART_POLICY:-unless-stopped}
+    volumes:
+      # Bind mount for TEI Publisher development inside the demo
+      - ./demo/existdb/oidc-demo:/tmp/output
+    ports:
+      - 8555:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - default
+  keycloak:
+    build:
+      context: .
+      dockerfile: demo/keycloak/keycloak.Dockerfile
+    command: start-dev
+    environment:
+      # Keycloak Variables
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      KC_HOSTNAME_STRICT: "false"
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+      
+      KC_HOSTNAME: http://localhost:8556
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+    networks:
+      - default
+    ports:
+      - 8556:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
