@@ -65,3 +65,17 @@ If this does not work for you, you can try adding an additional link to the menu
 ```
 
 to test if it is an issue with the logout button or the filters.
+
+Under `modules/lib/api.json`, the operation ID for `/auth/login` is replaced by this:
+
+```JSON
+"operationId": "oidc-auth:login",
+```
+
+and the file under `modules/oidc-auth.xql` is added.
+It handles the actual OIDC auth mapping to TEI Publisher.
+This file is then also be imported in the `modules/lib/api.xql`:
+
+```XQUERY
+import module namespace oidc-auth="http://example.org/tei-publisher/oidc-auth" at "../oidc-auth.xql";
+```
